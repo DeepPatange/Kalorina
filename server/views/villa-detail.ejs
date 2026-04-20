@@ -32,8 +32,8 @@
   <div class="dh-bg">
     <% if (project.hero_video) { %>
       <video autoplay muted loop playsinline preload="auto"
-             poster="/<%= encodeURI(project.cover_image || '') %>">
-        <source src="/<%= encodeURI(project.hero_video) %>" type="video/mp4" />
+             poster="<%= (project.cover_image && project.cover_image.startsWith('http')) ? project.cover_image : '/' + encodeURI(project.cover_image || '') %>">
+        <source src="<%= project.hero_video.startsWith('http') ? project.hero_video : '/' + encodeURI(project.hero_video) %>" type="video/mp4" />
       </video>
     <% } else if (project.cover_image) { %>
       <img src="<%= project.cover_image.startsWith('http') ? project.cover_image : '/' + encodeURI(project.cover_image) %>"

@@ -51,7 +51,7 @@ const VILLAS = [
     typology: 'Sea-facing Bungalow',
     description: 'A refined sea-facing bungalow — a study in quiet luxury with restrained fenestration and a palette drawn from the coast. Every room opens to the view.',
     cover_image: 'assets/Badem/DSC09185-Enhanced-NR.jpg',
-    hero_video: 'assets/Badem/Copy of 1763548285102915.MP4',
+    hero_video: 'https://res.cloudinary.com/dhcxhztde/video/upload/q_auto/f_auto/v1776687200/hero_bjdg7c.mp4',
     featured: 1, display_order: 2
   },
   {
@@ -66,7 +66,7 @@ const VILLAS = [
     typology: 'Countryside Villa',
     description: 'Open-plan living surrounded by rice fields and swaying palms. Architecture as an unhurried answer to the landscape — susegad philosophy made contemporary.',
     cover_image: 'assets/Guirim Villa A/33.jpg',
-    hero_video: 'assets/Guirim Villa A/Villa 3_v1.mp4',
+    hero_video: 'https://res.cloudinary.com/dhcxhztde/video/upload/q_auto/f_auto/v1776686448/Villa_3_v1_f9am5z.mp4',
     featured: 1, display_order: 3
   },
   {
@@ -81,7 +81,7 @@ const VILLAS = [
     typology: 'Courtyard Villa',
     description: 'Indo-Portuguese character with a central open-air courtyard as the social heart. For long lunches, slow afternoons, and unhurried dinners.',
     cover_image: 'assets/Guirim Vill B/3.jpg',
-    hero_video: 'assets/Guirim Vill B/Pink villa 1.mp4',
+    hero_video: 'https://res.cloudinary.com/dhcxhztde/video/upload/q_auto/f_auto/v1776686753/Pink_villa_1_t9t9ba.mp4',
     featured: 0, display_order: 4
   },
   {
