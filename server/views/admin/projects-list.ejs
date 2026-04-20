@@ -1,0 +1,60 @@
+<%- include('_header', { title: 'Projects', nav: 'projects' }) %>
+
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Portfolio</span>
+    <h1>Projects</h1>
+  </div>
+  <a href="/admin/projects/new" class="btn btn-primary">+ New Project</a>
+</header>
+
+<section class="panel">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:60px;">Cover</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Order</th>
+        <th>Featured</th>
+        <th>Published</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.forEach(p => { %>
+        <tr>
+          <td>
+            <% if (p.cover_image) { %>
+              <img src="<%= p.cover_image.startsWith('http') ? p.cover_image : '/' + p.cover_image %>" alt="" class="thumb" />
+            <% } else { %>
+              <div class="thumb thumb-empty"></div>
+            <% } %>
+          </td>
+          <td>
+            <strong><%= p.name %></strong>
+            <small class="muted"><%= p.slug %></small>
+          </td>
+          <td><%= p.location || '—' %></td>
+          <td><span class="tag"><%= p.status || '—' %></span></td>
+          <td><%= p.display_order %></td>
+          <td><%= p.featured ? '★' : '' %></td>
+          <td><%= p.published ? 'Yes' : 'Draft' %></td>
+          <td class="row-action">
+            <a href="/admin/projects/<%= p.id %>/edit" class="link">Edit</a>
+            <form method="POST" action="/admin/projects/<%= p.id %>?_method=DELETE" class="inline"
+                  onsubmit="return confirm('Delete project \'<%= p.name %>\' and all its images?');">
+              <button type="submit" class="link danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+      <% if (projects.length === 0) { %>
+        <tr><td colspan="8" class="empty">No projects yet. <a href="/admin/projects/new" class="link">Create one.</a></td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+
+<%- include('_footer') %>

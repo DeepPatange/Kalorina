@@ -1,0 +1,43 @@
+<%- include('_header', { title: (isNew ? 'New User' : 'Edit: ' + user.email), nav: 'users' }) %>
+
+<header class="page-head">
+  <div>
+    <span class="eyebrow"><%= isNew ? 'Create' : 'Edit' %></span>
+    <h1><%= isNew ? 'New admin user' : user.email %></h1>
+  </div>
+  <a href="/admin/users" class="btn btn-ghost">← Back to users</a>
+</header>
+
+<form method="POST" action="<%= isNew ? '/admin/users' : '/admin/users/' + user.id %>" class="form panel">
+  <label>Name
+    <input type="text" name="name" value="<%= user.name || '' %>" />
+  </label>
+
+  <% if (isNew) { %>
+    <label>Email
+      <input type="email" name="email" value="<%= user.email || '' %>" required />
+    </label>
+  <% } else { %>
+    <label>Email
+      <input type="email" value="<%= user.email %>" disabled />
+      <small class="muted">Email cannot be changed.</small>
+    </label>
+  <% } %>
+
+  <label>Role
+    <select name="role">
+      <option value="editor" <%= user.role === 'editor' || !user.role ? 'selected' : '' %>>Editor — can manage projects</option>
+      <option value="super"  <%= user.role === 'super' ? 'selected' : '' %>>Super Admin — full access</option>
+    </select>
+  </label>
+
+  <label>Password <% if (!isNew) { %><small class="muted">(leave blank to keep current)</small><% } %>
+    <input type="password" name="password" autocomplete="new-password" <%= isNew ? 'required' : '' %> minlength="6" />
+  </label>
+
+  <div class="form-footer">
+    <button type="submit" class="btn btn-primary"><%= isNew ? 'Create User' : 'Save Changes' %> →</button>
+  </div>
+</form>
+
+<%- include('_footer') %>

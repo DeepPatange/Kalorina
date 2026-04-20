@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Karolina Corporation</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-red.png" alt="Karolina Corporation" />
+      <span class="brand-name">KAROLINA<small>CORPORATION</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="team.html">Team</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 01 · HERO ============ -->
+<section class="contact-hero">
+  <div class="container">
+    <p class="crumbs"><a href="index.html">Home</a><span>/</span>Contact</p>
+    <span class="status-pulse">Currently Accepting Enquiries</span>
+    <h1>Start a Conversation.</h1>
+    <p class="lede">Every enquiry is answered personally — usually within 48 hours, often faster. Write, call, or schedule a private visit at a time that suits you.</p>
+  </div>
+</section>
+
+<!-- ============ 02 · THREE CONTACT METHODS ============ -->
+<section class="section" style="padding-top:5rem; padding-bottom:5rem;">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter One · Quick Access</span>
+        <h2>Three Ways to Reach Us.</h2>
+      </div>
+      <div class="count">Response<strong>48 Hours</strong></div>
+    </div>
+
+    <div class="contact-methods">
+      <a href="mailto:karolinacorporationllp@gmail.com" class="method-tile">
+        <span class="m-label">Write</span>
+        <span class="m-value">karolinacorporationllp@gmail.com</span>
+        <span class="m-hint">Full portfolio introduction sent within 48 hours, written by the team.</span>
+        <span class="m-go">Open Email <span>&rarr;</span></span>
+      </a>
+      <a href="tel:+918097826695" class="method-tile">
+        <span class="m-label">Call</span>
+        <span class="m-value">+91 80978 26695</span>
+        <span class="m-hint">Direct line to our team. Mon–Sat, 10 am – 7 pm IST.</span>
+        <span class="m-go">Call Now <span>&rarr;</span></span>
+      </a>
+      <a href="#enquire" class="method-tile">
+        <span class="m-label">Visit</span>
+        <span class="m-value">By Private Appointment</span>
+        <span class="m-hint">Tour a completed residence in Goa or the Karjat site under construction.</span>
+        <span class="m-go">Request Visit <span>&rarr;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · FORM + ASSURANCE ============ -->
+<section class="section cream" id="enquire" style="padding-top:5rem; padding-bottom:6rem;">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter Two · The Enquiry</span>
+        <h2>Tell Us What You're Exploring.</h2>
+      </div>
+      <div class="count">Fields<strong>Minimal</strong></div>
+    </div>
+
+    <div class="form-grid">
+      <!-- Left: assurance / team card -->
+      <aside class="assurance-card">
+        <span class="a-label">You'll Hear From</span>
+        <h3>The Karolina Team — Personally.</h3>
+        <p>Your message goes to Sheel and the partner architects directly. No form-filters, no intermediaries. We read each note and reply with context, not copy-paste.</p>
+        <div class="a-team">
+          <span class="letter">S</span>
+          <span class="letter">A</span>
+          <span class="letter">M</span>
+          <span class="letter">V</span>
+        </div>
+        <span class="a-sig">— Sheel Kumar &amp; the Karolina Team</span>
+      </aside>
+
+      <!-- Right: polished form -->
+      <form class="form-card" onsubmit="event.preventDefault(); alert('Thank you — we will be in touch shortly.'); this.reset();">
+        <h3>Send Us a Message</h3>
+
+        <!-- Intent radios -->
+        <div class="form-intent" role="radiogroup" aria-label="Intent">
+          <input type="radio" id="int-buy" name="intent" value="Buying a Villa" checked />
+          <label for="int-buy">Buying a Villa</label>
+
+          <input type="radio" id="int-visit" name="intent" value="Private Visit" />
+          <label for="int-visit">Private Visit</label>
+
+          <input type="radio" id="int-partner" name="intent" value="Partnership" />
+          <label for="int-partner">Partnership</label>
+
+          <input type="radio" id="int-general" name="intent" value="General" />
+          <label for="int-general">General</label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="c-name">Full Name</label>
+            <input id="c-name" type="text" name="name" required autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="c-email">Email Address</label>
+            <input id="c-email" type="email" name="email" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="c-phone">Phone <em style="text-transform:none;letter-spacing:0;font-style:italic;color:var(--muted);">&nbsp;(optional)</em></label>
+            <input id="c-phone" type="tel" name="phone" autocomplete="tel" />
+          </div>
+          <div class="form-field">
+            <label for="c-villa">Villa of Interest</label>
+            <select id="c-villa" name="villa">
+              <option value="">Not yet — exploring</option>
+              <option>Karjat Villas (Under Construction)</option>
+              <option>Moonstone Villa — Badem, Goa</option>
+              <option>Villa Guirim A</option>
+              <option>Villa Guirim B</option>
+              <option>Villament Guirim</option>
+              <option>Ivy House — Marna</option>
+              <option>Colva Villa — South Goa</option>
+              <option>Casa Ziba</option>
+              <option>A bespoke build</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="c-message">Message</label>
+          <textarea id="c-message" name="message" required placeholder="Tell us about the land, brief, or simply what you're imagining."></textarea>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="submit-hint">We'll reply personally within 48 hours.</span>
+          <button type="submit">Send Enquiry <span>&rarr;</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · LOCATIONS MAP ============ -->
+<section class="locations-strip">
+  <div class="container">
+    <div class="map-copy">
+      <span class="eyebrow">Chapter Three · Where We Build</span>
+      <h2>Goa to Mumbai's Horizon.</h2>
+      <p>Every Karolina residence is rooted in one of three carefully chosen destinations — each offering a distinct character of light, landscape, and lifestyle.</p>
+      <ul>
+        <li>
+          <span class="dot"></span>
+          <span class="name">Goa <small>Assagaon &middot; Guirim &middot; Marna &middot; Colva</small></span>
+          <span class="status">Active · 06 Villas</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span class="name">Karjat <small>Maharashtra · 2 hrs from Mumbai</small></span>
+          <span class="status">Under Construction</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span class="name">Mumbai <small>Head Office</small></span>
+          <span class="status">By Appointment</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="locations-map" id="karolinaMap"></div>
+  </div>
+</section>
+
+<!-- ============ 05 · WHAT HAPPENS NEXT ============ -->
+<section class="section dark" style="padding-top:5rem; padding-bottom:5rem;">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter Four · What Happens Next</span>
+        <h2>After You Send Your Enquiry.</h2>
+      </div>
+      <div class="count">Steps<strong>03</strong></div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="p-num">01</span>
+        <h4>We Read &amp; Review</h4>
+        <p>Your message reaches the founder and the partner architects directly. We read it carefully, often the same day. No CRM auto-replies.</p>
+      </div>
+      <div class="process-step">
+        <span class="p-num">02</span>
+        <h4>A Considered Reply</h4>
+        <p>Within 48 hours, we respond with portfolio notes suited to your brief — and suggest the right next step: a call, a visit, or a deeper exchange.</p>
+      </div>
+      <div class="process-step">
+        <span class="p-num">03</span>
+        <h4>A Private Conversation</h4>
+        <p>If there's alignment, we schedule a private consultation with the person on our team best suited to your project. Every project is bespoke from the first conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <h5>Karolina Corporation</h5>
+        <p>A subsidiary of Krasnaya Corporation. Crafting timeless villas where architecture, nature, and refined living meet.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <a href="about.html">About</a>
+        <a href="team.html">Team</a>
+        <a href="projects.html">Projects</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h5>Get in Touch</h5>
+        <a href="mailto:karolinacorporationllp@gmail.com">karolinacorporationllp@gmail.com</a>
+        <a href="tel:+918097826695">+91 80978 26695</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&copy; <span id="yr"></span> Karolina Corporation LLP. All rights reserved.</p>
+      <p>Driven by design. Guided by purpose.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  (function () {
+    var el = document.getElementById('karolinaMap');
+    if (!el || typeof L === 'undefined') return;
+
+    var locations = [
+      { name: 'Goa',    sub: '06 Villas · North & South', lat: 15.62, lng: 73.75, radius: 14 },
+      { name: 'Karjat', sub: '6 Acres · Under Construction', lat: 18.91, lng: 73.32, radius: 12 },
+      { name: 'Mumbai', sub: 'Head Office', lat: 19.07, lng: 72.87, radius: 10 }
+    ];
+
+    var map = L.map(el, {
+      center: [17.6, 73.3],
+      zoom: 7,
+      scrollWheelZoom: false,
+      zoomControl: true,
+      attributionControl: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 18
+    }).addTo(map);
+
+    locations.forEach(function (loc) {
+      var icon = L.divIcon({
+        className: 'brand-pin',
+        html:
+          '<span class="brand-pin-pulse"></span>' +
+          '<span class="brand-pin-dot"></span>' +
+          '<span class="brand-pin-label"><strong>' + loc.name + '</strong><em>' + loc.sub + '</em></span>',
+        iconSize: [loc.radius * 2, loc.radius * 2],
+        iconAnchor: [loc.radius, loc.radius]
+      });
+      L.marker([loc.lat, loc.lng], { icon: icon }).addTo(map);
+    });
+
+    L.polyline(
+      locations.map(function (l) { return [l.lat, l.lng]; }),
+      { color: '#741827', weight: 1.5, opacity: 0.5, dashArray: '4 5' }
+    ).addTo(map);
+
+    map.fitBounds(
+      locations.map(function (l) { return [l.lat, l.lng]; }),
+      { padding: [60, 60] }
+    );
+  })();
+</script>
+<script src="script.js" defer></script>
+</body>
+</html>

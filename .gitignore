@@ -1,0 +1,15 @@
+node_modules/
+server/data/*.db
+server/data/*.db-journal
+.env
+.DS_Store
+/tmp/
+
+# Large video assets — over GitHub's 100MB file limit.
+# Upload to a CDN or use Git LFS instead.
+*.mp4
+*.MP4
+
+# Large PDFs (brand guideline only)
+Karolina BG_compressed.pdf
+

@@ -1,0 +1,67 @@
+<%- include('_header', { title: 'Dashboard', nav: 'dashboard' }) %>
+
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Overview</span>
+    <h1>Welcome back, <%= user.name || user.email.split('@')[0] %>.</h1>
+  </div>
+  <a href="/admin/projects/new" class="btn btn-primary">+ New Project</a>
+</header>
+
+<div class="stat-grid">
+  <div class="stat">
+    <strong><%= projects.length %></strong>
+    <span>Projects total</span>
+  </div>
+  <div class="stat">
+    <strong><%= projects.filter(p => p.published).length %></strong>
+    <span>Published</span>
+  </div>
+  <div class="stat">
+    <strong><%= projects.filter(p => p.featured).length %></strong>
+    <span>Featured on home</span>
+  </div>
+  <div class="stat">
+    <strong><%= userCount %></strong>
+    <span>Admin users</span>
+  </div>
+</div>
+
+<section class="panel">
+  <header>
+    <h2>Recent projects</h2>
+    <a href="/admin/projects" class="link">Manage all →</a>
+  </header>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Featured</th>
+        <th>Published</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.slice(0, 8).forEach(p => { %>
+        <tr>
+          <td>
+            <strong><%= p.name %></strong>
+            <small class="muted"><%= p.slug %></small>
+          </td>
+          <td><%= p.location || '—' %></td>
+          <td><span class="tag"><%= p.status || '—' %></span></td>
+          <td><%= p.featured ? '★' : '' %></td>
+          <td><%= p.published ? 'Yes' : 'Draft' %></td>
+          <td class="row-action"><a href="/admin/projects/<%= p.id %>/edit" class="link">Edit →</a></td>
+        </tr>
+      <% }) %>
+      <% if (projects.length === 0) { %>
+        <tr><td colspan="6" class="empty">No projects yet. <a href="/admin/projects/new" class="link">Create the first one.</a></td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+
+<%- include('_footer') %>

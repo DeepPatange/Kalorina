@@ -1,0 +1,191 @@
+<%- include('_header', { title: (isNew ? 'New Project' : 'Edit: ' + (project.name || '')), nav: 'projects' }) %>
+
+<header class="page-head">
+  <div>
+    <span class="eyebrow"><%= isNew ? 'Create' : 'Edit' %></span>
+    <h1><%= isNew ? 'New Project' : project.name %></h1>
+    <% if (!isNew) { %><small class="muted">/<%= project.slug %></small><% } %>
+  </div>
+  <div>
+    <a href="/admin/projects" class="btn btn-ghost">← Back to list</a>
+  </div>
+</header>
+
+<form method="POST" action="<%= isNew ? '/admin/projects' : '/admin/projects/' + project.id %>" class="form form-grid panel">
+  <!-- BASIC -->
+  <fieldset class="col-span-2">
+    <legend>Basics</legend>
+    <div class="row-2">
+      <label>Name
+        <input type="text" name="name" value="<%= project.name || '' %>" required />
+      </label>
+      <label>Slug <small class="muted">(URL)</small>
+        <input type="text" name="slug" value="<%= project.slug || '' %>" placeholder="auto-generated from name" />
+      </label>
+    </div>
+    <label>Tagline <small class="muted">(short subtitle)</small>
+      <input type="text" name="tagline" value="<%= project.tagline || '' %>" />
+    </label>
+    <label>Description
+      <textarea name="description" rows="5"><%= project.description || '' %></textarea>
+    </label>
+  </fieldset>
+
+  <!-- LOCATION & META -->
+  <fieldset>
+    <legend>Location &amp; Architect</legend>
+    <label>Location
+      <input type="text" name="location" value="<%= project.location || '' %>" placeholder="e.g. Badem, Assagaon" />
+    </label>
+    <label>Region
+      <input type="text" name="region" value="<%= project.region || '' %>" placeholder="North Goa, Maharashtra, …" />
+    </label>
+    <label>Architect
+      <input type="text" name="architect" value="<%= project.architect || '' %>" />
+    </label>
+    <label>Typology
+      <input type="text" name="typology" value="<%= project.typology || '' %>" placeholder="Sea-facing Bungalow, Villament, …" />
+    </label>
+    <label>Status
+      <select name="status">
+        <% ['', 'Completed', 'Under Construction', 'In Development', 'Ready Q4 2025', 'Ready 2026'].forEach(s => { %>
+          <option value="<%= s %>" <%= project.status === s ? 'selected' : '' %>><%= s || '—' %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Ready date
+      <input type="text" name="ready_date" value="<%= project.ready_date || '' %>" placeholder="e.g. Q4 2025" />
+    </label>
+  </fieldset>
+
+  <!-- SPECS -->
+  <fieldset>
+    <legend>Specifications</legend>
+    <div class="row-2">
+      <label>BHK
+        <input type="text" name="bhk" value="<%= project.bhk || '' %>" placeholder="4 BHK" />
+      </label>
+      <label>Bedrooms
+        <input type="text" name="bedrooms" value="<%= project.bedrooms || '' %>" placeholder="4 En-suite" />
+      </label>
+    </div>
+    <div class="row-2">
+      <label>Bathrooms
+        <input type="text" name="bathrooms" value="<%= project.bathrooms || '' %>" />
+      </label>
+      <label>Parking
+        <input type="text" name="parking" value="<%= project.parking || '' %>" />
+      </label>
+    </div>
+    <div class="row-2">
+      <label>Plot size
+        <input type="text" name="plot_sqft" value="<%= project.plot_sqft || '' %>" placeholder="5,200 Sq. Ft." />
+      </label>
+      <label>Built-up size
+        <input type="text" name="builtup_sqft" value="<%= project.builtup_sqft || '' %>" placeholder="3,800 Sq. Ft." />
+      </label>
+    </div>
+    <div class="row-2">
+      <label>Pool
+        <input type="text" name="pool" value="<%= project.pool || '' %>" placeholder="Private · 28 Ft." />
+      </label>
+      <label>Orientation
+        <input type="text" name="orientation" value="<%= project.orientation || '' %>" placeholder="North-East" />
+      </label>
+    </div>
+  </fieldset>
+
+  <!-- PUBLISHING -->
+  <fieldset class="col-span-2">
+    <legend>Publishing</legend>
+    <div class="row-3">
+      <label class="check">
+        <input type="checkbox" name="published" value="1" <%= project.published == null || project.published ? 'checked' : '' %> />
+        <span>Published</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" name="featured" value="1" <%= project.featured ? 'checked' : '' %> />
+        <span>Featured on home</span>
+      </label>
+      <label>Display order
+        <input type="number" name="display_order" value="<%= project.display_order || 0 %>" />
+      </label>
+    </div>
+  </fieldset>
+
+  <div class="col-span-2 form-footer">
+    <button type="submit" class="btn btn-primary"><%= isNew ? 'Create Project' : 'Save Changes' %> →</button>
+  </div>
+</form>
+
+<% if (!isNew) { %>
+
+  <!-- COVER IMAGE upload -->
+  <section class="panel">
+    <header>
+      <h2>Cover image</h2>
+      <% if (project.cover_image) { %>
+        <small class="muted"><%= project.cover_image %></small>
+      <% } %>
+    </header>
+    <% if (project.cover_image) { %>
+      <img src="<%= project.cover_image.startsWith('http') ? project.cover_image : '/' + project.cover_image %>" class="preview" alt="cover" />
+    <% } else { %>
+      <p class="muted">No cover image yet. Upload one below — it's shown on the portfolio grid.</p>
+    <% } %>
+    <form method="POST" action="/admin/projects/<%= project.id %>/cover" enctype="multipart/form-data" class="inline-form">
+      <input type="hidden" name="field" value="cover_image" />
+      <input type="file" name="cover" accept="image/*" required />
+      <button type="submit" class="btn">Upload cover</button>
+    </form>
+  </section>
+
+  <!-- HERO VIDEO upload -->
+  <section class="panel">
+    <header>
+      <h2>Hero video <small class="muted">(optional, used on detail page hero)</small></h2>
+      <% if (project.hero_video) { %>
+        <small class="muted"><%= project.hero_video %></small>
+      <% } %>
+    </header>
+    <form method="POST" action="/admin/projects/<%= project.id %>/cover" enctype="multipart/form-data" class="inline-form">
+      <input type="hidden" name="field" value="hero_video" />
+      <input type="file" name="cover" accept="video/*" required />
+      <button type="submit" class="btn">Upload video</button>
+    </form>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="panel">
+    <header>
+      <h2>Gallery <small class="muted">(<%= images.length %> image<%= images.length === 1 ? '' : 's' %>)</small></h2>
+    </header>
+
+    <form method="POST" action="/admin/projects/<%= project.id %>/gallery" enctype="multipart/form-data" class="inline-form">
+      <input type="file" name="images" accept="image/*" multiple required />
+      <button type="submit" class="btn btn-primary">+ Add to gallery</button>
+    </form>
+
+    <% if (images.length) { %>
+      <div class="gallery">
+        <% images.forEach(img => { %>
+          <div class="g-item">
+            <img src="/<%= img.path %>" alt="<%= img.caption || '' %>" />
+            <form method="POST" action="/admin/projects/<%= project.id %>/gallery/<%= img.id %>/caption" class="g-caption">
+              <input type="text" name="caption" value="<%= img.caption || '' %>" placeholder="Caption…" />
+              <button type="submit">Save</button>
+            </form>
+            <form method="POST" action="/admin/projects/<%= project.id %>/gallery/<%= img.id %>?_method=DELETE"
+                  onsubmit="return confirm('Delete this image?')" class="g-delete">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="muted">No gallery images yet. Upload one or more above.</p>
+    <% } %>
+  </section>
+<% } %>
+
+<%- include('_footer') %>

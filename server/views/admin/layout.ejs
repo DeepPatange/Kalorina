@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= title %> — Karolina Admin</title>
+<link rel="stylesheet" href="/admin-static/admin.css" />
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+
+<% if (user) { %>
+<aside class="side">
+  <div class="side-brand">
+    <strong>KAROLINA</strong>
+    <small>Admin Console</small>
+  </div>
+  <nav class="side-nav">
+    <a href="/admin" class="<%= nav === 'dashboard' ? 'on' : '' %>"><span>Dashboard</span></a>
+    <a href="/admin/projects" class="<%= nav === 'projects' ? 'on' : '' %>"><span>Projects</span></a>
+    <% if (user.role === 'super') { %>
+      <a href="/admin/users" class="<%= nav === 'users' ? 'on' : '' %>"><span>Users</span></a>
+    <% } %>
+    <a href="/" target="_blank"><span>View Site ↗</span></a>
+  </nav>
+  <div class="side-user">
+    <span class="u-name"><%= user.name || user.email %></span>
+    <span class="u-role"><%= user.role === 'super' ? 'Super Admin' : 'Editor' %></span>
+    <form method="POST" action="/admin/logout" class="logout-form">
+      <button type="submit">Log out</button>
+    </form>
+  </div>
+</aside>
+<% } %>
+
+<main class="<%= user ? 'with-side' : 'no-side' %>">
+  <% if (flash) { %>
+    <div class="flash flash-<%= flash.type %>"><%= flash.text %></div>
+  <% } %>
+
+  <%- body %>
+</main>
+
+</body>
+</html>

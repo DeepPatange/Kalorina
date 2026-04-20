@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= project.name %> — Karolina Corporation</title>
+<meta name="description" content="<%= project.tagline || project.description || '' %>" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="/" class="brand">
+      <img src="/assets/logo-red.png" alt="Karolina Corporation" />
+      <span class="brand-name">KAROLINA<small>CORPORATION</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+    <nav class="menu">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/team.html">Team</a>
+      <a href="/projects.html" class="active">Projects</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 01 · DETAIL HERO ============ -->
+<section class="detail-hero">
+  <div class="dh-bg">
+    <% if (project.hero_video) { %>
+      <video autoplay muted loop playsinline preload="auto"
+             poster="/<%= encodeURI(project.cover_image || '') %>">
+        <source src="/<%= encodeURI(project.hero_video) %>" type="video/mp4" />
+      </video>
+    <% } else if (project.cover_image) { %>
+      <img src="<%= project.cover_image.startsWith('http') ? project.cover_image : '/' + encodeURI(project.cover_image) %>"
+           alt="<%= project.name %>" />
+    <% } %>
+  </div>
+  <div class="dh-glass">
+    <div>
+      <p class="dh-crumbs"><a href="/">Home</a><span>/</span><a href="/projects.html">Projects</a><span>/</span><%= project.name %></p>
+      <h1><%= project.name %></h1>
+      <span class="dh-loc"><%= [project.location, project.region].filter(Boolean).join(' · ') %></span>
+    </div>
+    <div class="dh-meta">
+      <% if (project.bhk) { %>
+        <div><strong><%= project.bhk %></strong><em>Configuration</em></div>
+      <% } %>
+      <% if (project.builtup_sqft) { %>
+        <div><strong><%= project.builtup_sqft %></strong><em>Built-up</em></div>
+      <% } %>
+      <% if (project.status) { %>
+        <div><strong><%= project.status %></strong><em>Status</em></div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- META BAR -->
+<div class="meta-bar">
+  <% if (project.status) { %><span><span class="pulse"></span><%= project.status %></span><% } %>
+  <% if (project.architect) { %><span>Architect · <%= project.architect %></span><% } %>
+  <% if (project.region) { %><span><%= project.region %></span><% } %>
+</div>
+
+<!-- ============ INTRO ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter One · The Residence</span>
+        <h2><%= project.tagline || project.name %></h2>
+      </div>
+      <% if (project.typology) { %>
+        <div class="count">Typology<strong><%= project.typology %></strong></div>
+      <% } %>
+    </div>
+
+    <div class="detail-intro">
+      <% if (project.cover_image) { %>
+        <figure>
+          <img src="<%= project.cover_image.startsWith('http') ? project.cover_image : '/' + encodeURI(project.cover_image) %>"
+               alt="<%= project.name %> — cover" loading="lazy" />
+          <figcaption>
+            <span class="frame-num">Frame 01</span>
+            <span>Exterior · Approach</span>
+          </figcaption>
+        </figure>
+      <% } %>
+      <div class="intro-copy">
+        <% if (project.description) { %>
+          <p class="lead"><%= project.description.split('\n')[0] %></p>
+          <% project.description.split('\n').slice(1).forEach(function(para) { if (para.trim()) { %>
+            <p><%= para %></p>
+          <% } }) %>
+        <% } else { %>
+          <p class="lead"><%= project.tagline || 'Details coming soon.' %></p>
+        <% } %>
+        <p style="margin-top:1.6rem;">
+          <a href="/contact.html" class="link-sweep">Enquire &amp; Schedule a Visit <span class="arrow">&rarr;</span></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY (if any) ============ -->
+<% if (images && images.length) { %>
+<section class="villa-gallery-scroll">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter Two · Gallery</span>
+        <h2><%= project.name %>, In Detail</h2>
+      </div>
+      <div class="count">Frames<strong><%= String(images.length).padStart(2, '0') %></strong></div>
+    </div>
+
+    <div class="gallery-reveal">
+      <% images.forEach(function(img, i) {
+           // Alternate layout — hero bookends + grid
+           var total = images.length;
+           var klass = 'f-right';
+           if (i === 0)                 klass = 'f-hero';
+           else if (i === total - 1)    klass = 'f-finale';
+           else if (i % 6 === 1)        klass = 'f-wide';
+           else if (i % 6 === 2)        klass = 'f-narrow';
+           else if (i % 6 === 3)        klass = 'f-center';
+           else if (i % 6 === 4)        klass = 'f-left';
+      %>
+        <figure class="<%= klass %>">
+          <img src="/<%= encodeURI(img.path) %>" alt="<%= img.caption || project.name %>" loading="lazy" />
+          <span class="frame-num"><%= String(i + 1).padStart(2, '0') %></span>
+          <figcaption>
+            <span class="title"><%= img.caption || 'Frame ' + (i + 1) %></span>
+            <span class="meta"><%= String(i + 1).padStart(2, '0') %> / <%= String(total).padStart(2, '0') %></span>
+          </figcaption>
+        </figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============ SPECS ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter Three · At a Glance</span>
+        <h2>Plan &amp; Dimensions.</h2>
+      </div>
+      <% if (project.ready_date) { %>
+        <div class="count">Ready<strong><%= project.ready_date %></strong></div>
+      <% } %>
+    </div>
+
+    <div class="detail-plan">
+      <div>
+        <h3>The Specification</h3>
+        <p>Detailed floor plans are available on request during a private visit.</p>
+        <p style="margin-top:1.2rem;">
+          <a href="/contact.html" class="link-sweep">Request Floor Plans <span class="arrow">&rarr;</span></a>
+        </p>
+      </div>
+      <dl>
+        <% if (project.location)     { %><div><dt>Location</dt><dd><%= project.location %></dd></div><% } %>
+        <% if (project.region)       { %><div><dt>Region</dt><dd><%= project.region %></dd></div><% } %>
+        <% if (project.plot_sqft)    { %><div><dt>Plot</dt><dd><%= project.plot_sqft %></dd></div><% } %>
+        <% if (project.builtup_sqft) { %><div><dt>Built-up</dt><dd><%= project.builtup_sqft %></dd></div><% } %>
+        <% if (project.bedrooms)     { %><div><dt>Bedrooms</dt><dd><%= project.bedrooms %></dd></div><% } %>
+        <% if (project.bathrooms)    { %><div><dt>Bathrooms</dt><dd><%= project.bathrooms %></dd></div><% } %>
+        <% if (project.pool)         { %><div><dt>Pool</dt><dd><%= project.pool %></dd></div><% } %>
+        <% if (project.parking)      { %><div><dt>Parking</dt><dd><%= project.parking %></dd></div><% } %>
+        <% if (project.orientation)  { %><div><dt>Orientation</dt><dd><%= project.orientation %></dd></div><% } %>
+        <% if (project.architect)    { %><div><dt>Architect</dt><dd><%= project.architect %></dd></div><% } %>
+        <% if (project.status)       { %><div><dt>Status</dt><dd><%= project.status %></dd></div><% } %>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELATED ============ -->
+<% if (related && related.length) { %>
+<section class="section cream">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">Chapter Four · Related Residences</span>
+        <h2>Other Karolina Villas.</h2>
+      </div>
+      <div class="count">Portfolio<strong>08</strong></div>
+    </div>
+    <div class="related-grid">
+      <% related.forEach(function(r) { %>
+        <a href="/villa/<%= r.slug %>">
+          <div class="r-img">
+            <img src="<%= r.cover_image && r.cover_image.startsWith('http') ? r.cover_image : '/' + encodeURI(r.cover_image || '') %>"
+                 alt="<%= r.name %>" loading="lazy" />
+          </div>
+          <div class="r-body">
+            <p class="loc"><%= r.location || r.region %></p>
+            <h4><%= r.name %></h4>
+            <span class="view">View Details &rarr;</span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============ CTA ============ -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-glass">
+      <span class="eyebrow">Experience <%= project.name %></span>
+      <h2>Schedule a Private Visit.</h2>
+      <p>Our team arranges personal tours by appointment.</p>
+      <a href="/contact.html" class="btn btn-cream">Request a Visit</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <h5>Karolina Corporation</h5>
+        <p>A subsidiary of Krasnaya Corporation. Crafting timeless villas where architecture, nature, and refined living meet.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <a href="/about.html">About</a>
+        <a href="/team.html">Team</a>
+        <a href="/projects.html">Projects</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div>
+        <h5>Get in Touch</h5>
+        <a href="mailto:karolinacorporationllp@gmail.com">karolinacorporationllp@gmail.com</a>
+        <a href="tel:+918097826695">+91 80978 26695</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&copy; <span id="yr"></span> Karolina Corporation LLP. All rights reserved.</p>
+      <p>Driven by design. Guided by purpose.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/script.js" defer></script>
+</body>
+</html>

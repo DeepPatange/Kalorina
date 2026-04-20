@@ -1,0 +1,44 @@
+<%- include('_header', { title: 'Users', nav: 'users' }) %>
+
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Team Access</span>
+    <h1>Admin users</h1>
+  </div>
+  <a href="/admin/users/new" class="btn btn-primary">+ New User</a>
+</header>
+
+<section class="panel">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% list.forEach(u => { %>
+        <tr>
+          <td><strong><%= u.name || '—' %></strong></td>
+          <td><%= u.email %></td>
+          <td><span class="tag <%= u.role === 'super' ? 'tag-primary' : '' %>"><%= u.role %></span></td>
+          <td><small class="muted"><%= new Date(u.created_at).toLocaleDateString() %></small></td>
+          <td class="row-action">
+            <a href="/admin/users/<%= u.id %>/edit" class="link">Edit</a>
+            <% if (u.id !== user.id) { %>
+              <form method="POST" action="/admin/users/<%= u.id %>?_method=DELETE" class="inline"
+                    onsubmit="return confirm('Delete user <%= u.email %>?');">
+                <button type="submit" class="link danger">Delete</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+
+<%- include('_footer') %>
