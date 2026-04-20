@@ -13,3 +13,4 @@ server/data/*.db-journal
 # Large PDFs (brand guideline only)
 Karolina BG_compressed.pdf
 
+.asset-backup/
